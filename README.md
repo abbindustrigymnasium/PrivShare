@@ -1,5 +1,47 @@
-# Vue 3 + Vite
+# PrivShare
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+File sharing website without a central server, encrypted.&#x20;
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Prerequisites
+
+- Node.js (v14 or newer)
+- npm (v6 or newer)
+
+## Setup
+
+1. **Create a Pinata account**\
+   Visit [Pinata](https://pinata.cloud/) and sign up (or log in).\
+   Navigate to **API Keys** and generate a new **JWT**.
+
+2. **Add your JWT to the environment file**\
+   In the project root, create a file named `.env` (if it doesn’t exist) and add:
+
+   ```env
+   VITE_PINATA_JWT=YOUR_PINATA_JWT_HERE
+   ```
+
+   Replace `YOUR_PINATA_JWT_HERE` with the token you generated in Pinata.
+
+3. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+## Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+When prompted in the console, type:
+
+```
+o
+```
+
+and press **Enter** to open the app in your browser.
+
+---
