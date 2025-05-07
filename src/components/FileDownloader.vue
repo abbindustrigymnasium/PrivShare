@@ -129,6 +129,7 @@ async function downloadFile() {
     downloadMessage.value = "Removing file from network…";
     await deleteCid(cid);
     downloadMessage.value = "Done! File downloaded and unpinned.";
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   } catch (err) {
     console.error(err);
     error.value = err.message || String(err);
