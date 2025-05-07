@@ -2,7 +2,7 @@
 
 **Share encrypted files securely—no server required.**
 
-PrivShare Web is a browser-based, privacy-first file sharing application built on decentralized IPFS infrastructure. Files are encrypted client-side before upload and can be shared via a short code—no central server or account required.
+PrivShare Web is a browser-based, privacy-first file sharing application built on decentralized IPFS infrastructure. Files are encrypted client-side before upload and can be shared via a code, no central server or account required.
 
 ## Features
 
@@ -37,7 +37,6 @@ PrivShare Web is a browser-based, privacy-first file sharing application built o
      touch .env
      # open .env and add:
      VITE_PINATA_JWT=<your_pinata_jwt>
-     VITE_PINATA_GATEWAY=ipfs.io          # optional, defaults to Pinata’s gateway
      ```
 
    - Install npm packages:
@@ -54,31 +53,12 @@ PrivShare Web is a browser-based, privacy-first file sharing application built o
   npm run dev
   ```
 
-- **Open in browser** when prompted or visit `http://localhost:3000`.
-
 ## Usage
 
 1. **Upload**: Click **Upload**, select a file, wait for encryption and upload. Copy the generated code.
 2. **Download**: Click **Download**, paste the share code, and retrieve your decrypted file with original name and extension.
 
-**Troubleshooting**: If you encounter issues, ensure your `.env` file exists in the project root with the correct `VITE_` variables (see [Quick Setup](#quick-setup)). For code navigation and file locations, refer to the [Project Structure](#project-structure) below.
-
-## Project Structure
-
-```
-src/
-├─ components/
-│  ├─ FileUploader.vue   # upload + encrypt + code generation
-│  ├─ FileDownloader.vue # code input + decrypt + download
-│  └─ Home.vue           # landing page with navigation
-├─ lib/
-│  ├─ crypto.js          # WebCrypto wrappers
-│  └─ ipfsUploader.js    # Pinata upload helper
-├─ assets/styles.css     # dark theme & responsive layout
-├─ App.vue               # root container
-├─ main.js               # app bootstrap
-└─ router.js             # navigation
-```
+**Troubleshooting**: If you encounter issues, ensure your `.env` file exists in the project root with the correct `VITE_` variables (see [Quick Setup](#quick-setup)).
 
 ## Architecture Overview
 
