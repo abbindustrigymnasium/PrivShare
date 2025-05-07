@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <div class="p-4">
+    <div class="p-4" style="width: 100%; max-width: var(--max-width)">
       <input
         v-model="codeInput"
         placeholder="Paste share code here"
@@ -29,6 +29,30 @@ const downloading = ref(false);
 const downloadMessage = ref("Downloading…");
 const error = ref("");
 
+// Number of attempts for network fetch
+const MAX_RETRIES = 3;
+
+// Helper: fetch with automatic retries on network errors
+async function fetchWithRetry(
+  url,
+  options = {},
+  retries = MAX_RETRIES,
+  delay = 2000
+) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fetch(url, options);
+    } catch (err) {
+      if (attempt === retries) {
+        throw err; // no retries left
+      }
+      downloadMessage.value = `Network error, retrying ${attempt}/${retries}…`;
+      // wait before next attempt
+      await new Promise((res) => setTimeout(res, delay));
+    }
+  }
+}
+
 function base64urlToBase64(str) {
   let s = str.replace(/-/g, "+").replace(/_/g, "/");
   const pad = (4 - (s.length % 4)) % 4;
@@ -37,6 +61,7 @@ function base64urlToBase64(str) {
 
 async function downloadFile() {
   if (!codeInput.value) return;
+
   downloading.value = true;
   downloadMessage.value = "Decoding code…";
   error.value = "";
@@ -47,11 +72,13 @@ async function downloadFile() {
     const [cid, keyB64] = raw.split(":");
 
     // 2. Import AES key
+    downloadMessage.value = "Importing key…";
     const key = await importKey(keyB64);
 
-    // 3. Fetch the encrypted container from a CORS-friendly gateway
+    // 3. Fetch the encrypted container (with retry)
     downloadMessage.value = "Fetching encrypted data…";
-    const resp = await fetch(`https://ipfs.io/ipfs/${cid}`);
+    const url = `https://ipfs.io/ipfs/${cid}`;
+    const resp = await fetchWithRetry(url);
     if (!resp.ok) throw new Error(`Fetch failed: ${resp.statusText}`);
     const data = new Uint8Array(await resp.arrayBuffer());
 
@@ -99,10 +126,9 @@ async function downloadFile() {
     URL.revokeObjectURL(a.href);
 
     // 8. Unpin the CID from Pinata
-    downloadMessage.value = "Removing file from server…";
+    downloadMessage.value = "Removing file from network…";
     await deleteCid(cid);
-    downloadMessage.value =
-      "Done! File downloaded and unpinned from the network.";
+    downloadMessage.value = "Done! File downloaded and unpinned.";
   } catch (err) {
     console.error(err);
     error.value = err.message || String(err);
