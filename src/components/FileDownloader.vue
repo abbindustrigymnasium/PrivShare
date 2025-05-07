@@ -1,19 +1,21 @@
 <template>
-  <div class="p-4">
-    <input
-      v-model="codeInput"
-      placeholder="Paste share code here"
-      class="w-full border p-2"
-      :disabled="downloading"
-    />
-    <button
-      @click="downloadFile"
-      class="mt-2 px-4 py-2 bg-blue-600 text-white"
-      :disabled="downloading || !codeInput"
-    >
-      {{ downloading ? downloadMessage : "Download" }}
-    </button>
-    <p v-if="error" class="text-red-600 mt-2">{{ error }}</p>
+  <div class="page-content">
+    <div class="p-4">
+      <input
+        v-model="codeInput"
+        placeholder="Paste share code here"
+        class="w-full border p-2"
+        :disabled="downloading"
+      />
+      <button
+        @click="downloadFile"
+        class="mt-2 px-4 py-2 bg-blue-600 text-white"
+        :disabled="downloading || !codeInput"
+      >
+        {{ downloading ? downloadMessage : "Download" }}
+      </button>
+      <p v-if="error" class="text-red-600 mt-2">{{ error }}</p>
+    </div>
   </div>
 </template>
 

@@ -1,17 +1,19 @@
 <template>
-  <div class="p-4">
-    <input type="file" @change="handleFile" :disabled="uploading" />
+  <div class="page-content">
+    <div class="p-4">
+      <input type="file" @change="handleFile" :disabled="uploading" />
 
-    <p v-if="uploading">{{ uploadMessage }}</p>
+      <p v-if="uploading">{{ uploadMessage }}</p>
 
-    <div v-else-if="shareCode">
-      <p>Here’s your share code (paste to download):</p>
-      <textarea readonly rows="3" class="w-full border p-2">{{
-        shareCode
-      }}</textarea>
+      <div v-else-if="shareCode">
+        <p>Here’s your share code (paste to download):</p>
+        <textarea readonly rows="3" class="w-full border p-2">{{
+          shareCode
+        }}</textarea>
+      </div>
+
+      <p v-else-if="error" class="text-red-600">{{ error }}</p>
     </div>
-
-    <p v-else-if="error" class="text-red-600">{{ error }}</p>
   </div>
 </template>
 
