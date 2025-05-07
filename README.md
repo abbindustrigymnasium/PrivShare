@@ -1,6 +1,6 @@
 # PrivShare Web
 
-**Share encrypted files securely—no server required.**
+**Share encrypted files securely, no server required.**
 
 PrivShare Web is a browser-based, privacy-first file sharing application built on decentralized IPFS infrastructure. Files are encrypted client-side before upload and can be shared via a code, no central server or account required.
 
