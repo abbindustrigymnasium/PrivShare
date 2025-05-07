@@ -52,24 +52,40 @@ textarea {
   resize: none;
 }
 
-.home h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--color-primary);
+.home-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: var(--padding);
+  gap: 1rem;
 }
 
-.button-group {
+.home-grid h1 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.home-grid .button-group {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
 }
 
 @media (max-width: 600px) {
-  .button-group {
+  .home-grid .button-group {
     flex-direction: column;
+    width: 100%;
   }
 }
 
 .page-content {
-  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - (var(--padding) * 2));
+  padding: var(--padding);
+  width: 100%;
 }
